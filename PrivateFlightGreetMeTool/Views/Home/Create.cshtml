@@ -1,0 +1,104 @@
+﻿@using GreetMeTool.Domain.Model;
+@model Greeting
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h2 class="text-capilization text-center">Create Greeting Message</h2>
+    <form asp-controller="Home" asp-action="index" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-lg-4">Country Code</div>
+            <div class="col-lg-8">
+                <input asp-for="CountryCode" placeholder="Enter Country Code" autocomplete="off" class="form-control" />
+                <span asp-validation-for="CountryCode" class="text-danger"></span>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">Title</div>
+            <div class="col-lg-8">
+                <input asp-for="Title" placeholder="Enter title for admin" autocomplete="off" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-lg-4">Message Text</div>
+            <div class="col-lg-8">
+                <input asp-for="MessageText" placeholder="Enter message text to greet" autocomplete="off" class="form-control" />
+                <span asp-validation-for="MessageText" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">Message Type</div>
+            <div class="col-lg-8">
+                <select asp-for="MessageType" class="form-control" onchange="check()">
+                    <option>A</option>
+                    <option>B</option>
+                </select>
+
+                <span asp-validation-for="MessageType" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">Start Date</div>
+            <div class="col-lg-8">
+                <div class="form-group">
+                   
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-lg-4">End Date</div>
+                <div class="col-lg-8">
+                    <div class="form-group">
+                       
+                        <div class="col-md-10">
+                            
+                            @Html.EditorFor(model => model.EndDate, new
+                               {
+                                   htmlAttributes
+                                    =
+                                    new
+                                    {
+                                        @class = "form-control"
+
+                                    }
+                               }
+                             )
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <br />
+            
+                <div class="row">
+                    <div class="col-lg-offset-4 col-lg-8">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+</form>
+ </div>
+<script>
+ 
+    function check() {
+        if ($("#MessageType").val() != "B") {
+            $("#EndDate").attr("disabled", "disabled");
+        } else {
+            $("#EndDate").removeAttr("disabled");
+        }
+
+    }
+</script>
