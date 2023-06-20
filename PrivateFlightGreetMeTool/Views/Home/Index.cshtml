@@ -1,0 +1,88 @@
+﻿@using GreetMeTool.Domain.Model;
+@model IEnumerable<Greeting>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="text-capilization text-center">Greeting Message List</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary"> <i class="fa-solid fa-circle-plus"></i> Add New</a>
+    </p>
+    <div class="row">
+        
+
+        <div class="col-lg-8">
+
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                @Html.DisplayName("Filter By Country Code:");
+                @Html.TextBox("CountryCode");
+                <input type="submit" value="Search" />
+            }
+        </div>
+        </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.CountryCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageText)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </th>
+                        <th>Action(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Greeting item in Model)
+                    {
+                        <tr>
+                           
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.CountryCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MessageType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MessageText)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+
+                                <a href="@Url.Action("Edit", item)" class="btn btn-sm btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="@Url.Action("Delete",new { id=item.Id})" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
